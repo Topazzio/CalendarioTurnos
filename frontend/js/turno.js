@@ -204,6 +204,7 @@ document.getElementById("confirmar-btn").addEventListener("click", async () => {
   const startTime = `${selectedDate}T${selectedTime}:00`;
 
   const res = await fetch("/book", {
+    
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -216,16 +217,26 @@ document.getElementById("confirmar-btn").addEventListener("click", async () => {
       comentarios: comentarios,
       start_time: startTime,
     }),
-  });
+  }
+);
 
   const result = await res.json();
 
-  if (res.ok) {
-    alert("✅ Turno confirmado correctamente");
-    location.reload();
-  } else {
-    alert(result.detail || "Error al reservar");
+
+if (res.ok) {
+
+  alert("✅ Turno confirmado correctamente");
+
+  if(result.whatsapp_cliente){
+    window.open(result.whatsapp_cliente, "_blank");
   }
+
+  if(result.whatsapp_negocio){
+    window.open(result.whatsapp_negocio, "_blank");
+  }
+
+  location.reload();
+}
 });
 setInterval(() => {
   loadCalendar();

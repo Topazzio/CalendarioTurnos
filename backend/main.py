@@ -11,6 +11,7 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi import Query
 from fastapi.middleware.cors import CORSMiddleware
+import urllib.parse
 import time
 import os
 
@@ -85,7 +86,7 @@ def week_availability(week_offset: int = Query(0)):
     return data
 from fastapi.responses import HTMLResponse
 
-@app.post("/book")
+@app.post("/book")  
 def book_turno(data: BookingRequest):
 
     now = datetime.now(TZ)
@@ -124,8 +125,57 @@ def book_turno(data: BookingRequest):
 
     # ✅ liberar lock
     remove_lock(start_iso)
+    # 🟢 MENSAJE WHATSAPP
+    message_cliente = f"""
+Hola {data.name} 👋
 
-    return {"status": "confirmed", "event_id": event["id"]}
+Tu turno fue confirmado ✅
+
+📅 Fecha: {start_time.strftime("%d/%m/%Y")}
+⏰ Hora: {start_time.strftime("%H:%M")}
+🚗 Auto: {data.auto} ({data.anio})
+🧵 Material: {data.material}
+
+📍 Dirección:https://maps.app.goo.gl/8qJapg3rEW255nYw5
+
+Si necesitás cambiarlo avisame 👍
+"""
+
+    encoded_message = urllib.parse.quote(message_cliente)
+
+    whatsapp_cliente = f"https://wa.me/549{data.phone}?text={encoded_cliente}"
+
+    BUSINESS_PHONE = "5493517501425"
+
+    message_negocio = f"""
+🚨 NUEVO TURNO RESERVADO
+
+👤 Cliente: {data.name}
+📞 Tel: {data.phone}
+
+🚗 Auto: {data.auto}
+📅 Año: {data.anio}
+
+🧵 Material: {data.material}
+
+📅 Fecha: {start_time.strftime("%d/%m/%Y")}
+⏰ Hora: {start_time.strftime("%H:%M")}
+
+💳 Pago: {data.pago}
+
+📝 Comentarios:
+{data.comentarios}
+"""
+    encoded_negocio = urllib.parse.quote(message_negocio)
+
+    whatsapp_negocio = f"https://wa.me/{BUSINESS_PHONE}?text={encoded_negocio}"
+    
+    return {
+    "status": "confirmed",
+    "event_id": event["id"],
+    "whatsapp_cliente": whatsapp_cliente,
+    "whatsapp_negocio": whatsapp_negocio
+    }
 
 @app.post("/hold")
 def hold_turn(data: BookingRequest):
