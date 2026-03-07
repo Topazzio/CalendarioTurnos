@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta, date
 import pytz
-from schedule import generate_day_slots
+from backend.schedule import generate_day_slots
 from google_calendar import get_busy_times
 
 TZ = pytz.timezone("America/Argentina/Cordoba")
