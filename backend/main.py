@@ -18,6 +18,7 @@ import os
 calendar_cache = {}
 CACHE_DURATION = 30  # segundos
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+FRONTEND_DIR = os.path.join(BASE_DIR, "frontend")
 
 app = FastAPI()
 
@@ -26,7 +27,7 @@ SCOPES = ["https://www.googleapis.com/auth/calendar"]
 TZ = ZoneInfo("America/Argentina/Cordoba")
 
 
-app.mount("/", StaticFiles(directory=os.path.join(BASE_DIR, "frontend"), html=True))
+app.mount("/", StaticFiles(directory=FRONTEND_DIR, html=True), name="frontend")
 
 # CORS (seguridad)
 app.add_middleware(
