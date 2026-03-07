@@ -1,9 +1,10 @@
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
-from google.oauth2.credentials import Credentials
+from google.oauth2 import service_account
 from google.auth.transport.requests import Request
 from datetime import datetime, timedelta
 import os
+import json
 from zoneinfo import ZoneInfo
 
 
@@ -14,32 +15,18 @@ TIMEZONE = "America/Argentina/Cordoba"
 
 def get_calendar_service():
 
-    creds = None
+    credentials_json = os.environ.get("GOOGLE_CREDENTIALS")
 
-    # ✅ usar token existente
-    if os.path.exists("token.json"):
-        creds = Credentials.from_authorized_user_file(
-            "token.json",
-            SCOPES
-        )
+    credentials_info = json.loads(credentials_json)
 
-    # ✅ si no existe o expiró → login
-    if not creds or not creds.valid:
+    creds = service_account.Credentials.from_service_account_info(
+        credentials_info,
+        scopes=SCOPES
+    )
 
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-        else:
-            flow = InstalledAppFlow.from_client_secrets_file(
-                "credentials.json",
-                SCOPES
-            )
-            creds = flow.run_local_server(port=0)
+    service = build("calendar", "v3", credentials=creds)
 
-        # guardar token
-        with open("token.json", "w") as token:
-            token.write(creds.to_json())
-
-    return build("calendar", "v3", credentials=creds)
+    return service
 
 
 def get_busy_times(date):
