@@ -42,23 +42,6 @@ app.add_middleware(
 def availability():
     return {"message": "slots here"}
 
-# Servir frontend
-@app.get("/")
-def home():
-    return FileResponse("../frontend/index.html")
-
-@app.get("/accesorios")
-def accesorios():
-    return FileResponse("../frontend/accesorios.html")
-
-@app.get("/faq")
-def faq():
-    return FileResponse("../frontend/FAQ.html")
-
-@app.get("/turno")
-def turnos():
-    return FileResponse("../frontend/turno.html")
-
 @app.get("/auth")
 def auth():
 
