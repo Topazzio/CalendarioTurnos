@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from datetime import date, timedelta
 from backend.availability import build_week_availability
-from google_calendar import create_event, is_slot_available
+from backend.google_calendar import create_event, is_slot_available
 from backend.models import BookingRequest
 from datetime import datetime, timedelta
 from google_auth_oauthlib.flow import InstalledAppFlow
