@@ -221,9 +221,9 @@ document.getElementById("confirmar-btn").addEventListener("click", async () => {
 );
 
 const result = await res.json();
-
+console.log(result);
 if (res.ok) {
-
+  
   alert("✅ Turno confirmado correctamente");
 
   if(result.whatsapp_link){
