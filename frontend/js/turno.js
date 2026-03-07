@@ -220,22 +220,21 @@ document.getElementById("confirmar-btn").addEventListener("click", async () => {
   }
 );
 
-  const result = await res.json();
-
+const result = await res.json();
 
 if (res.ok) {
 
   alert("✅ Turno confirmado correctamente");
 
-  if(result.whatsapp_cliente){
-    window.open(result.whatsapp_cliente, "_blank");
-  }
-
-  if(result.whatsapp_negocio){
-    window.open(result.whatsapp_negocio, "_blank");
+  if(result.whatsapp_link){
+    window.open(result.whatsapp_link, "_blank");
+    alert("Se abrirá WhatsApp para que puedas enviar un mensaje con los detalles de tu turno.");
   }
 
   location.reload();
+
+} else {
+  alert(result.detail || "Error al reservar");
 }
 });
 setInterval(() => {

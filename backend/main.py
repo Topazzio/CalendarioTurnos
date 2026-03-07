@@ -1,3 +1,5 @@
+from email import message
+
 from fastapi import FastAPI, HTTPException
 from datetime import date, timedelta
 from backend.availability import build_week_availability
@@ -126,55 +128,31 @@ def book_turno(data: BookingRequest):
     # ✅ liberar lock
     remove_lock(start_iso)
     # 🟢 MENSAJE WHATSAPP
-    message_cliente = f"""
+    message = f"""
 Hola {data.name} 👋
 
 Tu turno fue confirmado ✅
 
 📅 Fecha: {start_time.strftime("%d/%m/%Y")}
 ⏰ Hora: {start_time.strftime("%H:%M")}
+
 🚗 Auto: {data.auto} ({data.anio})
 🧵 Material: {data.material}
 
-📍 Dirección:https://maps.app.goo.gl/8qJapg3rEW255nYw5
+📍 Dirección:
+https://maps.app.goo.gl/8qJapg3rEW255nYw5
 
 Si necesitás cambiarlo avisame 👍
 """
 
-    encoded_cliente = urllib.parse.quote(message_cliente)
+    encoded_message = urllib.parse.quote(message)
 
-    whatsapp_cliente = f"https://wa.me/549{data.phone}?text={encoded_cliente}"
-
-    BUSINESS_PHONE = "5493517501425"
-
-    message_negocio = f"""
-🚨 NUEVO TURNO RESERVADO
-
-👤 Cliente: {data.name}
-📞 Tel: {data.phone}
-
-🚗 Auto: {data.auto}
-📅 Año: {data.anio}
-
-🧵 Material: {data.material}
-
-📅 Fecha: {start_time.strftime("%d/%m/%Y")}
-⏰ Hora: {start_time.strftime("%H:%M")}
-
-💳 Pago: {data.pago}
-
-📝 Comentarios:
-{data.comentarios}
-"""
-    encoded_negocio = urllib.parse.quote(message_negocio)
-
-    whatsapp_negocio = f"https://wa.me/{BUSINESS_PHONE}?text={encoded_negocio}"
+    whatsapp_link = f"https://wa.me/549{data.phone}?text={encoded_message}"
     
     return {
     "status": "confirmed",
     "event_id": event["id"],
-    "whatsapp_cliente": whatsapp_cliente,
-    "whatsapp_negocio": whatsapp_negocio
+    "whatsapp_link": whatsapp_link
     }
 
 @app.post("/hold")
