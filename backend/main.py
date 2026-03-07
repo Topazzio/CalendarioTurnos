@@ -141,7 +141,7 @@ Tu turno fue confirmado ✅
 Si necesitás cambiarlo avisame 👍
 """
 
-    encoded_message = urllib.parse.quote(message_cliente)
+    encoded_cliente = urllib.parse.quote(message_cliente)
 
     whatsapp_cliente = f"https://wa.me/549{data.phone}?text={encoded_cliente}"
 
