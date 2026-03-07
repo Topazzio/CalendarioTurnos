@@ -9,8 +9,7 @@ from zoneinfo import ZoneInfo
 from backend.locks import create_lock, is_locked, remove_lock
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
-from fastapi.staticfiles import StaticFiles
+from fastapi import Query
 from fastapi.middleware.cors import CORSMiddleware
 import time
 import os
@@ -42,25 +41,6 @@ app.add_middleware(
 def availability():
     return {"message": "slots here"}
 
-@app.get("/auth")
-def auth():
-
-    flow = InstalledAppFlow.from_client_secrets_file(
-        "credentials.json",
-        SCOPES
-    )
-
-    # 👇 ESTA LÍNEA ES LA CLAVE
-    creds = flow.run_local_server(
-        port=8080,
-        access_type="offline",
-        prompt="consent"
-    )
-
-    with open("token.json", "w") as token:
-        token.write(creds.to_json())
-
-    return {"status": "Google Calendar conectado correctamente ✅"}
 
 @app.get("/calendar")
 def calendar():
@@ -77,7 +57,7 @@ def list_calendars():
     return calendars
 
 @app.get("/week-availability")
-def week_availability(week_offset: int = 0):
+def week_availability(week_offset: int = Query(0)):
 
     cache_key = f"week_{week_offset}"
     now = time.time()
@@ -107,15 +87,6 @@ def week_availability(week_offset: int = 0):
 
     return data
 from fastapi.responses import HTMLResponse
-
-@app.get("/", response_class=HTMLResponse)
-def home():
-    return """
-    <h1>Servidor de Turnos funcionando ✅</h1>
-    <p><a href="/auth">Conectar Google Calendar</a></p>
-    """
-
-
 
 @app.post("/book")
 def book_turno(data: BookingRequest):
