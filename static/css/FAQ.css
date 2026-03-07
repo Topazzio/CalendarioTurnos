@@ -1,0 +1,100 @@
+/* ================= FAQ ================= */
+/* FAQ SECTION */
+.faq {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+.faq h2 {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 40px;
+}
+
+/* ITEM */
+.faq-item {
+  background: #8fc9b0;
+  border-radius: 15px;
+  margin-bottom: 15px;
+  overflow: hidden;
+}
+
+/* PREGUNTA */
+.faq-question {
+  width: 100%;
+  padding: 20px;
+  font-size: 20px;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  font-weight: 600;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* flechita */
+.faq-icon {
+  transition: transform 0.3s ease;
+  font-size: 18px;
+}
+
+/* rotación cuando está abierto */
+.faq-item.active .faq-icon {
+  transform: rotate(180deg);
+}
+
+/* RESPUESTA */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.faq-answer p {
+  padding: 20px;
+  font-size: 18px;
+}
+
+/*  MAPA GOOGLE */
+.map-container {
+  width: 100%;
+  margin-top: 15px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.map-container iframe {
+  width: 100%;
+  height: 300px;
+  border: 0;
+}
+
+
+/* BOTON WSP FAQ*/
+
+.cta-faq {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 25px;
+  font-weight: 500;
+}
+
+.cta-faq a {
+  background-color: #25D366;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  margin-left: 10px;
+  transition: 0.3s ease;
+
+}
+
+.cta-faq a:hover {
+  background-color: #1ebe5d;
+}

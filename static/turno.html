@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pedir Turno</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/static/css/styles.css" />
+    <link rel="stylesheet" href="/static/css/turno.css" />
+  </head>
+
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="logo-container">
+        <img src="/static/assets/logo.jpg" alt="Doble AA Logo" class="logo" />
+        <h1>Doble aa</h1>
+      </div>
+    </header>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+      <a href="/">Inicio</a>
+      <a href="/accesorios">Accesorios</a>
+      <a href="#" class="active">Pedi tu turno</a>
+      <a href="/faq">FAQ</a>
+    </nav>
+
+    <section class="turno">
+      <h2>¿Qué material te gustaría?</h2>
+
+      <!-- MATERIAL -->
+
+      <div class="material-grid">
+        <div class="material-card" data-material="Cuerina Premium">
+          <img src="/static/img/cuerina/Cronos.jpg" alt="Cuerina Premium" />
+          <div class="material-overlay">
+            <span>Cuerina Premium</span>
+          </div>
+        </div>
+
+        <div class="material-card" data-material="Cuero Sintético">
+          <img src="/static/img/sintetico/Honda.jpg" alt="Cuero Sintético" />
+          <div class="material-overlay">
+            <span>Cuero Sintético</span>
+          </div>
+        </div>
+
+        <div class="material-card" data-material="Cuero Natural">
+          <img src="/static/img/natural/volk.jpg" alt="Cuero Natural" />
+          <div class="material-overlay">
+            <span>Cuero Natural</span>
+          </div>
+        </div>
+
+        <div class="material-card" data-material="Lo decido en el momento">
+          <img src="/static/img/placeholder.png" alt="A definir" />
+          <div class="material-overlay">
+            <span>Lo decido en el momento</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="material-actions">
+        <button id="continuar" disabled>Continuar</button>
+      </div>
+
+
+      <!-- FORMULARIO -->
+      <div id="formulario-turno">
+        <h3>Completá tus datos</h3>
+
+        <form id="turnoForm">
+          <input type="text" id="nombre" placeholder="Tu nombre" required />
+          <input type="tel" id="telefono" placeholder="Tu teléfono ej: 351 0123456" required />
+          <input type="text" id="auto" placeholder="Marca y modelo" required />
+          <input type="text" id="anio" placeholder="Año" />
+
+          <select id="pago" required>
+            <option value="" disabled selected>Formas de pago</option>
+            <option value="Transferencia">Transferencia</option>
+            <option value="Efectivo">Efectivo</option>
+          </select>
+
+          <textarea id="comentarios" placeholder="Comentarios"></textarea>
+
+          <button type="submit">Elegir fecha</button>
+        </form>
+      </div>
+
+      <!-- CALENDARIO -->
+      <div id="calendario-section">
+        <h3>Elegí día y horario</h3>
+
+        <div id="turnos-disponibles" class="turnos-disponibles"></div>
+        
+        <div class="calendar-controls">
+          <button type="button" id="semana-anterior" onclick="changeWeek(-1)">⬅ Semana anterior</button>
+          <button type="button" id="semana-siguiente" onclick="changeWeek(1)">Semana siguiente ➡</button>
+        </div>
+
+
+        <div class="calendar-wrapper">
+
+  <div id="calendar-loading" class="calendar-loading">
+    <div class="loader"></div>
+    <p>Cargando disponibilidad...</p>
+  </div>
+
+  <div id="calendar" class="calendar"></div>
+
+</div>
+      </div>
+
+      <!-- CONFIRMACION -->
+      <div id="confirmacion-section">
+        <h3>Confirmá tu turno</h3>
+
+        <div id="resumen-turno"></div>
+
+        <div class="confirmacion-botones">
+          <button type="button" id="editar-btn">Editar</button>
+          <button type="button" id="confirmar-btn">Confirmar turno</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <h2>Doble AA</h2>
+          <p>Accesorios automotrices personalizados</p>
+        </div>
+
+        <div class="footer-links">
+          <a href="/">Inicio</a>
+          <a href="/accesorios">Accesorios</a>
+          <a href="#">Pedi tu turno</a>
+          <a href="/faq">FAQ</a>
+        </div>
+
+        <div class="footer-social">
+          <a
+            href="https://www.instagram.com/doble_aa_accesorios_/"
+            target="_blank"
+          >
+            <i class="fab fa-instagram"></i>
+          </a>
+
+          <a href="https://wa.me/5493517501425" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+
+          <a
+            href="https://www.facebook.com/profile.php?id=100083049946139"
+            target="_blank"
+          >
+            <i class="fab fa-facebook-f"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        © 2026 Doble AA - Todos los derechos reservados
+      </div>
+    </footer>
+    <script src="/static/js/turno.js"></script>
+  </body>
+</html>
