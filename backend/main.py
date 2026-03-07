@@ -26,7 +26,7 @@ SCOPES = ["https://www.googleapis.com/auth/calendar"]
 
 TZ = ZoneInfo("America/Argentina/Cordoba")
 
-
+#cambio
 app.mount("/", StaticFiles(directory=FRONTEND_DIR, html=True), name="frontend")
 
 # CORS (seguridad)
