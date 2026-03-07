@@ -10,6 +10,8 @@ from locks import create_lock, is_locked, remove_lock
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 import time
 
 calendar_cache = {}
@@ -22,23 +24,38 @@ SCOPES = ["https://www.googleapis.com/auth/calendar"]
 TZ = ZoneInfo("America/Argentina/Cordoba")
 
 
-app.mount("/static", StaticFiles(directory="../static"), name="static")
+app.mount("/frontend", StaticFiles(directory="../frontend"), name="frontend")
 
+# CORS (seguridad)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+@app.get("/api/availability")
+def availability():
+    return {"message": "slots here"}
+
+# Servir frontend
+app.mount("/", StaticFiles(directory="../frontend", html=True), name="frontend")
 @app.get("/")
 def home():
-    return FileResponse("../static/index.html")
+    return FileResponse("../frontend/index.html")
 
 @app.get("/accesorios")
 def accesorios():
-    return FileResponse("../static/accesorios.html")
+    return FileResponse("../frontend/accesorios.html")
 
 @app.get("/faq")
 def faq():
-    return FileResponse("../static/FAQ.html")
+    return FileResponse("../frontend/FAQ.html")
 
 @app.get("/turno")
 def turnos():
-    return FileResponse("../static/turno.html")
+    return FileResponse("../frontend/turno.html")
 
 @app.get("/auth")
 def auth():
