@@ -127,7 +127,7 @@ def book_turno(data: BookingRequest):
 
     # ✅ liberar lock
     remove_lock(start_iso)
-    BUSSINES_PHONE="5493517501425"
+    BUSINESS_PHONE = os.getenv("BUSINESS_PHONE")
     # 🟢 MENSAJE WHATSAPP
     message = f"""
 Hola {data.name} 👋
