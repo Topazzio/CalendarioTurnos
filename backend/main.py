@@ -127,6 +127,7 @@ def book_turno(data: BookingRequest):
 
     # ✅ liberar lock
     remove_lock(start_iso)
+    BUSSINES_PHONE="5493517501425"
     # 🟢 MENSAJE WHATSAPP
     message = f"""
 Hola {data.name} 👋
@@ -147,7 +148,7 @@ Si necesitás cambiarlo avisame 👍
 
     encoded_message = urllib.parse.quote(message)
 
-    whatsapp_link = f"https://wa.me/549{data.phone}?text={encoded_message}"
+    whatsapp_link = f"https://wa.me/549{BUSSINES_PHONE}?text={encoded_message}"
     
     return {
     "status": "confirmed",
