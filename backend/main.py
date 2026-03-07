@@ -43,7 +43,6 @@ def availability():
     return {"message": "slots here"}
 
 # Servir frontend
-app.mount("/", StaticFiles(directory="../frontend", html=True), name="frontend")
 @app.get("/")
 def home():
     return FileResponse("../frontend/index.html")
