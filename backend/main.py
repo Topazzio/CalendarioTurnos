@@ -1,12 +1,12 @@
 from fastapi import FastAPI, HTTPException
 from datetime import date, timedelta
-from availability import build_week_availability
+from backend.availability import build_week_availability
 from google_calendar import create_event, is_slot_available
-from models import BookingRequest
+from backend.models import BookingRequest
 from datetime import datetime, timedelta
 from google_auth_oauthlib.flow import InstalledAppFlow
 from zoneinfo import ZoneInfo
-from locks import create_lock, is_locked, remove_lock
+from backend.locks import create_lock, is_locked, remove_lock
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
