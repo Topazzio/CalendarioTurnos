@@ -25,9 +25,6 @@ SCOPES = ["https://www.googleapis.com/auth/calendar"]
 
 TZ = ZoneInfo("America/Argentina/Cordoba")
 
-#cambio
-app.mount("/", StaticFiles(directory=FRONTEND_DIR, html=True), name="frontend")
-
 # CORS (seguridad)
 app.add_middleware(
     CORSMiddleware,
@@ -142,3 +139,6 @@ def hold_turn(data: BookingRequest):
     create_lock(start)
 
     return {"status": "locked", "expires_in": "5 minutes"}
+
+#SIEMPRE AL FINAL
+app.mount("/", StaticFiles(directory=FRONTEND_DIR, html=True), name="frontend")
