@@ -220,9 +220,9 @@ document.getElementById("confirmar-btn").addEventListener("click", async () => {
   }
 );
 
-const result = await res.json();
+const text = await res.text();
 console.log(text);
-console.log(result);
+// console.log(result);
 if (res.ok) {
   
   alert("✅ Turno confirmado correctamente");
