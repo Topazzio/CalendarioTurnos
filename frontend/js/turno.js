@@ -228,7 +228,7 @@ if (res.ok) {
 
   if(result.whatsapp_link){
     alert("Se abrirá WhatsApp para que puedas enviar un mensaje con los detalles de tu turno.");
-    window.open(result.whatsapp_link, "_blank");
+    window.location.href = result.whatsapp_link;
   }
 
   location.reload();
