@@ -227,8 +227,9 @@ if (res.ok) {
   alert("✅ Turno confirmado correctamente");
 
   if(result.whatsapp_link){
-    alert("Se abrirá WhatsApp para que puedas enviar un mensaje con los detalles de tu turno.");
-    window.location.href = result.whatsapp_link;
+    if (confirm("Se abrirá WhatsApp para enviar los detalles de tu turno. ¿Querés continuar?")) {
+      window.open(result.whatsapp_link, "_blank");
+    }
   }
 
   location.reload();
