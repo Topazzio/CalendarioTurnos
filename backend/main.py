@@ -124,7 +124,7 @@ def book_turno(data: BookingRequest):
 
     # ✅ crear evento
     event = create_event(
-        summary=f"Turno {data.name}, {data.phone}",
+        summary=f"Turno de {data.name}, {data.phone}, {data.material}, {data.pago}",
         start_time=start_time.strftime("%Y-%m-%dT%H:%M:%S"),
         end_time=end_time.strftime("%Y-%m-%dT%H:%M:%S")
     )
