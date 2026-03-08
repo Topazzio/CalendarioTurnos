@@ -220,16 +220,15 @@ document.getElementById("confirmar-btn").addEventListener("click", async () => {
   }
 );
 
-const text = await res.text();
-console.log(text);
-// console.log(result);
+const result = await res.json();
+console.log(result);
 if (res.ok) {
   
   alert("✅ Turno confirmado correctamente");
 
   if(result.whatsapp_link){
-    window.open(result.whatsapp_link, "_blank");
     alert("Se abrirá WhatsApp para que puedas enviar un mensaje con los detalles de tu turno.");
+    window.open(result.whatsapp_link, "_blank");
   }
 
   location.reload();

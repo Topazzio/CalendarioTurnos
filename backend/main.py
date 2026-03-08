@@ -152,7 +152,7 @@ Si necesitás cambiarlo avisame 👍
 
     encoded_message = urllib.parse.quote(message)
 
-    whatsapp_link = f"https://wa.me/549{BUSINESS_PHONE}?text={encoded_message}"
+    whatsapp_link = f"https://wa.me/{BUSINESS_PHONE}?text={encoded_message}"
     
     return {
     "status": "confirmed",
