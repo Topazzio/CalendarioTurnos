@@ -221,6 +221,7 @@ document.getElementById("confirmar-btn").addEventListener("click", async () => {
 );
 
 const result = await res.json();
+console.log(text);
 console.log(result);
 if (res.ok) {
   
