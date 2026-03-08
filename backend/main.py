@@ -21,6 +21,10 @@ calendar_cache = {}
 CACHE_DURATION = 30  # segundos
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FRONTEND_DIR = os.path.join(BASE_DIR, "frontend")
+BUSINESS_PHONE = os.getenv("BUSINESS_PHONE")
+
+if not BUSINESS_PHONE:
+    raise ValueError("BUSINESS_PHONE environment variable not set")
 
 app = FastAPI()
 
@@ -127,7 +131,7 @@ def book_turno(data: BookingRequest):
 
     # ✅ liberar lock
     remove_lock(start_iso)
-    BUSINESS_PHONE = os.getenv("BUSINESS_PHONE")
+
     # 🟢 MENSAJE WHATSAPP
     message = f"""
 Hola {data.name} 👋
