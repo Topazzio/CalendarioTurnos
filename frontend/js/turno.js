@@ -221,18 +221,13 @@ document.getElementById("confirmar-btn").addEventListener("click", async () => {
 );
 
 const result = await res.json();
-console.log(result);
+
 if (res.ok) {
   
   alert("✅ Turno confirmado correctamente");
-  console.log("WhatsApp Link:", result.whatsapp_link);
   if(result.whatsapp_link){
-    if (confirm("Se abrirá WhatsApp para enviar los detalles de tu turno. ¿Querés continuar?")) {
-      window.open(result.whatsapp_link, "_blank");
-    }
+    window.location.href = result.whatsapp_link;
   }
-
-  location.reload();
 
 } else {
   alert(result.detail || "Error al reservar");

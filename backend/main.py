@@ -134,20 +134,20 @@ def book_turno(data: BookingRequest):
 
     # 🟢 MENSAJE WHATSAPP
     message = f"""
-Hola {data.name} 👋
+¡Hola! Te paso el resumen de mi turno
 
-Tu turno fue confirmado ✅
+Teléfono: {data.phone}
 
-📅 Fecha: {start_time.strftime("%d/%m/%Y")}
-⏰ Hora: {start_time.strftime("%H:%M")}
+Fecha: {start_time.strftime("%d/%m/%Y")}
+Hora: {start_time.strftime("%H:%M")}
 
-🚗 Auto: {data.auto} ({data.anio})
-🧵 Material: {data.material}
+Auto: {data.auto} ({data.anio})
+Material: {data.material}
 
-📍 Dirección:
+Dirección:
 https://maps.app.goo.gl/8qJapg3rEW255nYw5
 
-Si necesitás cambiarlo avisame 👍
+Nos vemos!
 """
 
     encoded_message = urllib.parse.quote(message)
