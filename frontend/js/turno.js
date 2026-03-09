@@ -225,7 +225,7 @@ console.log(result);
 if (res.ok) {
   
   alert("✅ Turno confirmado correctamente");
-
+  console.log("WhatsApp Link:", result.whatsapp_link);
   if(result.whatsapp_link){
     if (confirm("Se abrirá WhatsApp para enviar los detalles de tu turno. ¿Querés continuar?")) {
       window.open(result.whatsapp_link, "_blank");
