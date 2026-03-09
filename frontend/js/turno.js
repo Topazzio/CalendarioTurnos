@@ -224,7 +224,7 @@ const result = await res.json();
 
 if (res.ok) {
   
-  alert("✅ Turno confirmado correctamente");
+  alert("✅ Turno confirmado correctamente, se abriará WhatsApp para enviarte el detalle");
   if(result.whatsapp_link){
     window.location.href = result.whatsapp_link;
   }
