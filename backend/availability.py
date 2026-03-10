@@ -40,7 +40,10 @@ def build_week_availability(start_date: date):
             available = True
 
             # ❌ bloquear horario de almuerzo
-            if slot["start"].hour in BLOCKED_HOURS:
+            if (
+                slot["start"].hour in BLOCKED_HOURS
+                and current_day == now.date()
+                and now.hour >=0):
                 available = False
 
             # ❌ bloquear pasado
