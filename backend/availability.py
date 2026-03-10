@@ -34,7 +34,7 @@ def build_week_availability(start_date: date):
             ))
 
         day_slots = []
-        BLOCKED_HOURS = [12]
+        BLOCKED_HOURS = [12,15]
         for slot in slots:
 
             available = True
