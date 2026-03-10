@@ -34,10 +34,14 @@ def build_week_availability(start_date: date):
             ))
 
         day_slots = []
-
+        BLOCKED_HOURS = [12]
         for slot in slots:
 
             available = True
+
+            # ❌ bloquear horario de almuerzo
+            if slot["start"].hour in BLOCKED_HOURS:
+                available = False
 
             # ❌ bloquear pasado
             if slot["start"] <= now:
