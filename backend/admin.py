@@ -19,7 +19,7 @@ from typing import Optional
 #  CONFIG
 # ─────────────────────────────────────────────
 
-SECRET_KEY = os.getenv("ADMIN_SECRET_KEY", "cambia-esto-en-produccion-ahora-mismo")
+SECRET_KEY = os.getenv("ADMIN_SECRET_KEY", "68b88e51901c2d4d10172ab973a408bb61765e0d50d597367701e1efbdcdf6da")
 ALGORITHM  = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 8   # 8 horas
 
