@@ -1,18 +1,17 @@
 """
 admin.py  –  Rutas de administración para Doble AA
-Requiere: pip install python-jose[cryptography] passlib[bcrypt]
+Requiere: pip install python-jose[cryptography] bcrypt
 """
 
 import os
 import sqlite3
-import json
+import bcrypt
 from datetime import datetime, timedelta
 from pathlib import Path
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt
-from passlib.context import CryptContext
 from pydantic import BaseModel
 from typing import Optional
 
@@ -24,16 +23,17 @@ SECRET_KEY = os.getenv("ADMIN_SECRET_KEY", "cambia-esto-en-produccion-ahora-mism
 ALGORITHM  = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 8   # 8 horas
 
-ADMIN_USER     = os.getenv("ADMIN_USER", "admin")
-ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", "dobleaa2026")   # hashear en .env
+ADMIN_USER = os.getenv("ADMIN_USER", "admin")
 
-pwd_ctx    = CryptContext(schemes=["bcrypt"], deprecated="auto")
-oauth2     = OAuth2PasswordBearer(tokenUrl="/admin/token")
-router     = APIRouter(prefix="/admin", tags=["admin"])
+# ADMIN_HASH debe ser el hash bcrypt de tu contraseña, generado con:
+# python -c "import bcrypt; print(bcrypt.hashpw('tuPassword'.encode(), bcrypt.gensalt()).decode())"
+ADMIN_HASH = os.getenv("ADMIN_HASH", "")
 
-# Hash de la contraseña guardada en variable de entorno
-# Para generar: python -c "from passlib.context import CryptContext; print(CryptContext(schemes=['bcrypt']).hash('tupassword'))"
-ADMIN_HASH = os.getenv("ADMIN_HASH", pwd_ctx.hash(ADMIN_PASSWORD))
+oauth2 = OAuth2PasswordBearer(tokenUrl="/admin/token")
+router = APIRouter(prefix="/admin", tags=["admin"])
+
+def verify_password(plain: str, hashed: str) -> bool:
+    return bcrypt.checkpw(plain.encode(), hashed.encode())
 
 
 # ─────────────────────────────────────────────
@@ -112,7 +112,7 @@ def verify_token(token: str = Depends(oauth2)):
 
 @router.post("/token", response_model=Token)
 def login(form: OAuth2PasswordRequestForm = Depends()):
-    if form.username != ADMIN_USER or not pwd_ctx.verify(form.password, ADMIN_HASH):
+    if form.username != ADMIN_USER or not verify_password(form.password, ADMIN_HASH):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Usuario o contraseña incorrectos",
